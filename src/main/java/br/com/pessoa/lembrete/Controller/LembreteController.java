@@ -23,12 +23,12 @@ public class LembreteController {
     private LembreteService lembreteServ;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findByIdPath(@PathVariable("id") final Long id) {
+    public ResponseEntity<Lembrete> findByIdPath(@PathVariable("id") final Long id) {
         final Lembrete lembrete = this.lembreteRep.findById(id).orElse(null);
         return ResponseEntity.ok(lembrete);
     }
     @GetMapping("/lista")
-    public ResponseEntity<?> List(){
+    public ResponseEntity<List<Lembrete>> List(){
         return ResponseEntity.ok(this.lembreteRep.findAll());
 
     }

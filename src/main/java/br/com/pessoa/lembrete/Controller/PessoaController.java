@@ -5,9 +5,13 @@ import br.com.pessoa.lembrete.Repository.PessoaRepository;
 import br.com.pessoa.lembrete.Service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -20,19 +24,19 @@ public class PessoaController {
     private PessoaService pessoaServ;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findByIdPath(@PathVariable("id") final Long id) {
-        final Pessoa pessoa = this.pessoaRep.findById(id).orElse(null);
-        return ResponseEntity.ok(pessoa);
+    public ResponseEntity<Pessoa> findById(@PathVariable("id") final Long id) {
+        final Pessoa pessoas = this.pessoaRep.findById(id).orElse(null);
+        return ResponseEntity.ok(pessoas);
     }
     @GetMapping("/lista")
-    public ResponseEntity<?> List(){
+    public ResponseEntity<List<Pessoa>> List(){
         return ResponseEntity.ok(this.pessoaRep.findAll());
 
     }
 
     @GetMapping("/nome/{nome}")
-    public ResponseEntity<?> Nome(@PathVariable("nome") String nome){
-        Pessoa pessoa = pessoaRep.findByNome(nome);
+    public ResponseEntity<List<Pessoa>> Nome(@PathVariable("nome") String nome){
+        List<Pessoa> pessoa = pessoaRep.findByNome(nome);
         return ResponseEntity.ok(pessoa);
 
     }
